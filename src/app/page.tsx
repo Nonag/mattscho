@@ -31,7 +31,7 @@ export default function Home() {
 
               <a
                 className="inline-block px-7 py-4 border border-green text-green font-mono hover:bg-green/10 transition-colors"
-                href="https://github.com/Nonag"
+                href="https://linkedin.com/in/matthias-schott/"
                 rel="noopener noreferrer"
                 target="_blank"
               >
