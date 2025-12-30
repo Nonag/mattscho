@@ -48,6 +48,11 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
+      - name: Upgrade Yarn
+        if: ${{ steps.detect-package-manager.outputs.manager == 'yarn' }}
+        run: |
+          corepack enable
+          corepack prepare yarn@4.6.0 --activate
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -71,11 +76,6 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
-      - name: Enable Corepack and activate Yarn 4
-        if: ${{ steps.detect-package-manager.outputs.manager == 'yarn' }}
-        run: |
-          corepack enable
-          corepack prepare yarn@4.6.0 --activate
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
